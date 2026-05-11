@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AdminFácil – Gestión digital de conjuntos residenciales</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --navy:#1F4E79;
+  --blue:#2E75B6;
+  --lightblue:#BDD7EE;
+  --green:#217346;
+  --lightgreen:#E2EFDA;
+  --gold:#C9A834;
+  --gray:#F4F6F8;
+  --dark:#1A1A2E;
+  --text:#374151;
+  --border:#D1D5DB;
+}
+html{scroll-behavior:smooth}
+body{font-family:'Segoe UI',Arial,sans-serif;color:var(--text);font-size:15px;line-height:1.6}
+
+/* ─── NAV ─────────────────────────────── */
+nav{background:var(--navy);position:fixed;top:0;left:0;right:0;z-index:1000;padding:0 5%}
+.nav-inner{display:flex;align-items:center;height:64px;gap:32px}
+.logo{font-size:22px;font-weight:800;color:#fff;text-decoration:none;letter-spacing:.5px}
+.logo span{color:var(--gold)}
+.nav-links{display:flex;gap:24px;margin-left:auto;align-items:center}
+.nav-links a{color:#cce0f5;text-decoration:none;font-size:14px;font-weight:500;transition:color .2s}
+.nav-links a:hover{color:#fff}
+.nav-cta{background:var(--gold);color:var(--navy)!important;padding:8px 20px;border-radius:6px;font-weight:700!important}
+
+/* ─── HERO ─────────────────────────────── */
+.hero{background:linear-gradient(135deg,var(--navy) 0%,#1a3d6b 60%,#0d2d52 100%);color:#fff;padding:140px 5% 90px;min-height:100vh;display:flex;align-items:center}
+.hero-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
+.hero-badge{display:inline-block;background:rgba(201,168,52,.15);border:1px solid var(--gold);color:var(--gold);padding:5px 14px;border-radius:20px;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:20px}
+.hero h1{font-size:42px;font-weight:800;line-height:1.15;margin-bottom:16px}
+.hero h1 span{color:var(--gold)}
+.hero p{font-size:17px;color:#c0d4e8;margin-bottom:28px;line-height:1.7}
+.hero-btns{display:flex;gap:14px;flex-wrap:wrap}
+.btn-primary{background:var(--gold);color:var(--navy);padding:14px 28px;border-radius:8px;text-decoration:none;font-weight:700;font-size:15px;display:inline-block;transition:transform .15s,box-shadow .15s}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(201,168,52,.35)}
+.btn-outline{border:2px solid rgba(255,255,255,.4);color:#fff;padding:12px 24px;border-radius:8px;text-decoration:none;font-weight:600;font-size:15px;display:inline-block;transition:all .2s}
+.btn-outline:hover{background:rgba(255,255,255,.1)}
+.hero-visual{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.15);border-radius:16px;overflow:hidden;backdrop-filter:blur(10px)}
+.dash-header{background:rgba(255,255,255,.1);padding:12px 16px;display:flex;align-items:center;gap:8px}
+.dash-dot{width:10px;height:10px;border-radius:50%}
+.dash-title{color:#fff;font-size:13px;font-weight:600;margin-left:auto;opacity:.7}
+.dash-body{padding:16px;display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.mini-card{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.1);border-radius:8px;padding:12px;text-align:center}
+.mini-card .num{font-size:26px;font-weight:800;color:var(--gold)}
+.mini-card .lbl{font-size:10px;color:rgba(255,255,255,.6);text-transform:uppercase;letter-spacing:.5px}
+.mini-badge{display:inline-block;padding:2px 8px;border-radius:10px;font-size:10px;font-weight:700;margin:2px}
+.dash-list{padding:0 16px 16px;display:flex;flex-direction:column;gap:6px}
+.dash-row{background:rgba(255,255,255,.06);border-radius:6px;padding:8px 12px;display:flex;justify-content:space-between;align-items:center;font-size:12px;color:rgba(255,255,255,.8)}
+
+/* ─── TRUST BAR ─────────────────────────── */
+.trust-bar{background:#fff;padding:24px 5%;border-bottom:1px solid var(--border)}
+.trust-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;justify-content:space-around;gap:24px;flex-wrap:wrap}
+.trust-item{display:flex;align-items:center;gap:10px;font-size:14px;color:#6B7280}
+.trust-item strong{color:var(--navy);font-weight:700}
+.trust-icon{font-size:22px}
+
+/* ─── SECTIONS ─────────────────────────── */
+section{padding:80px 5%}
+.section-inner{max-width:1100px;margin:0 auto}
+.section-tag{display:inline-block;background:var(--lightblue);color:var(--navy);padding:4px 14px;border-radius:20px;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:12px}
+.section-title{font-size:34px;font-weight:800;color:var(--navy);line-height:1.2;margin-bottom:10px}
+.section-sub{font-size:16px;color:#6B7280;max-width:600px;margin:0 auto 48px}
+.text-center{text-align:center}
+
+/* ─── FEATURES ─────────────────────────── */
+#beneficios{background:var(--gray)}
+.features-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:28px}
+.feature-card{background:#fff;border-radius:12px;padding:28px;border:1px solid var(--border);transition:transform .2s,box-shadow .2s}
+.feature-card:hover{transform:translateY(-4px);box-shadow:0 12px 32px rgba(31,78,121,.12)}
+.feature-icon{font-size:36px;margin-bottom:14px}
+.feature-card h3{font-size:17px;font-weight:700;color:var(--navy);margin-bottom:8px}
+.feature-card p{font-size:14px;color:#6B7280;line-height:1.6}
+.feature-highlight{border-top:3px solid var(--gold)}
+
+/* ─── HOW IT WORKS ─────────────────────── */
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:32px;margin-top:48px}
+.step{text-align:center}
+.step-num{width:52px;height:52px;border-radius:50%;background:var(--navy);color:#fff;font-size:20px;font-weight:800;display:flex;align-items:center;justify-content:center;margin:0 auto 16px}
+.step h3{font-size:16px;font-weight:700;color:var(--navy);margin-bottom:8px}
+.step p{font-size:14px;color:#6B7280}
+.step-connector{border-top:2px dashed var(--lightblue);margin-top:26px;display:none}
+
+/* ─── PROPUESTA DE VALOR ─────────────────── */
+#propuesta{background:var(--navy);color:#fff}
+#propuesta .section-title{color:#fff}
+#propuesta .section-sub{color:#9DC3E6}
+.pv-grid{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center}
+.pv-list{display:flex;flex-direction:column;gap:20px}
+.pv-item{display:flex;gap:16px;align-items:flex-start}
+.pv-icon-box{width:44px;height:44px;border-radius:10px;background:rgba(201,168,52,.2);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:20px}
+.pv-item h4{font-size:15px;font-weight:700;color:var(--gold);margin-bottom:4px}
+.pv-item p{font-size:13.5px;color:#9DC3E6}
+.decree-box{background:rgba(255,255,255,.08);border:1px solid rgba(201,168,52,.3);border-radius:12px;padding:28px}
+.decree-box h3{color:var(--gold);font-size:17px;font-weight:700;margin-bottom:12px}
+.decree-box p{color:#9DC3E6;font-size:14px;margin-bottom:16px;line-height:1.7}
+.decree-check{display:flex;gap:10px;margin-bottom:8px;font-size:13.5px;color:#cce0f5}
+
+/* ─── TESTIMONIOS ─────────────────────── */
+#testimonios{background:var(--gray)}
+.testi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.testi-card{background:#fff;border-radius:12px;padding:24px;border:1px solid var(--border);border-top:3px solid var(--blue)}
+.testi-stars{color:var(--gold);font-size:18px;margin-bottom:12px}
+.testi-text{font-size:14px;color:#374151;line-height:1.7;font-style:italic;margin-bottom:16px}
+.testi-author{display:flex;align-items:center;gap:10px}
+.testi-avatar{width:40px;height:40px;border-radius:50%;background:var(--navy);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;flex-shrink:0}
+.testi-name{font-size:13.5px;font-weight:700;color:var(--navy)}
+.testi-role{font-size:12px;color:#6B7280}
+
+/* ─── PLANES ─────────────────────────── */
+.planes-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:48px}
+.plan-card{background:#fff;border-radius:12px;padding:28px;border:2px solid var(--border);text-align:center;position:relative}
+.plan-card.featured{border-color:var(--blue);box-shadow:0 8px 32px rgba(46,117,182,.2)}
+.plan-badge{position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:var(--gold);color:var(--navy);padding:3px 16px;border-radius:12px;font-size:11px;font-weight:700;white-space:nowrap}
+.plan-name{font-size:14px;font-weight:700;color:#6B7280;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px}
+.plan-price{font-size:36px;font-weight:800;color:var(--navy);margin-bottom:4px}
+.plan-price sup{font-size:18px}
+.plan-sub{font-size:12px;color:#6B7280;margin-bottom:20px}
+.plan-features{list-style:none;text-align:left;margin-bottom:24px;display:flex;flex-direction:column;gap:8px}
+.plan-features li{font-size:13.5px;color:#374151;display:flex;gap:8px;align-items:flex-start}
+.plan-features li::before{content:"✓";color:var(--green);font-weight:700;flex-shrink:0}
+.btn-plan{display:block;padding:12px;border-radius:8px;font-weight:700;font-size:14px;text-decoration:none;transition:all .2s;border:none;cursor:pointer;width:100%}
+.btn-plan-outline{border:2px solid var(--navy);color:var(--navy);background:#fff}
+.btn-plan-outline:hover{background:var(--navy);color:#fff}
+.btn-plan-fill{background:var(--navy);color:#fff}
+.btn-plan-fill:hover{background:#163d62}
+
+/* ─── FORM ─────────────────────────────── */
+#contacto{background:var(--navy)}
+.form-box{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.15);border-radius:16px;padding:48px;max-width:680px;margin:0 auto}
+.form-box h2{font-size:28px;font-weight:800;color:#fff;text-align:center;margin-bottom:8px}
+.form-box p{text-align:center;color:#9DC3E6;margin-bottom:32px;font-size:15px}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.form-group{display:flex;flex-direction:column;gap:6px}
+.form-group.full{grid-column:1/-1}
+.form-group label{font-size:13px;font-weight:600;color:#BDD7EE}
+.form-group input,.form-group select,.form-group textarea{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);border-radius:6px;padding:10px 14px;color:#fff;font-size:14px;font-family:inherit;transition:border-color .2s}
+.form-group input::placeholder,.form-group textarea::placeholder{color:rgba(255,255,255,.35)}
+.form-group input:focus,.form-group select:focus,.form-group textarea:focus{outline:none;border-color:var(--gold);background:rgba(255,255,255,.12)}
+.form-group select option{background:var(--navy);color:#fff}
+.form-group textarea{resize:vertical;min-height:100px}
+.form-submit{background:var(--gold);color:var(--navy);border:none;border-radius:8px;padding:14px 32px;font-size:15px;font-weight:700;cursor:pointer;width:100%;margin-top:8px;transition:all .2s;font-family:inherit}
+.form-submit:hover{background:#e6be45;transform:translateY(-1px)}
+.form-privacy{text-align:center;font-size:11.5px;color:rgba(255,255,255,.4);margin-top:10px}
+
+/* ─── FOOTER ─────────────────────────── */
+footer{background:#0d1a2b;padding:40px 5% 24px}
+.footer-inner{max-width:1100px;margin:0 auto}
+.footer-top{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px;margin-bottom:32px}
+.footer-brand .logo{font-size:20px;display:block;margin-bottom:10px}
+.footer-brand p{font-size:13px;color:#6B7280;line-height:1.7}
+.footer-col h4{font-size:13px;font-weight:700;color:#9CA3AF;text-transform:uppercase;letter-spacing:1px;margin-bottom:12px}
+.footer-col a{display:block;font-size:13px;color:#6B7280;text-decoration:none;margin-bottom:6px;transition:color .2s}
+.footer-col a:hover{color:#fff}
+.footer-bottom{border-top:1px solid #1F2937;padding-top:20px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px}
+.footer-bottom p{font-size:12px;color:#4B5563}
+
+/* ─── SUCCESS MSG ─────────────────────── */
+.success-msg{display:none;background:rgba(33,115,70,.2);border:1px solid var(--green);border-radius:8px;padding:16px;text-align:center;color:#90EE90;font-weight:600;margin-top:12px;font-size:14px}
+
+/* ─── RESPONSIVE ─────────────────────── */
+@media(max-width:768px){
+  .hero-inner,.features-grid,.steps,.testi-grid,.planes-grid,.pv-grid,.footer-top{grid-template-columns:1fr}
+  .hero h1{font-size:28px}
+  .form-grid{grid-template-columns:1fr}
+  .hero{padding:110px 5% 60px}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <a class="logo" href="#hero">Admin<span>Fácil</span></a>
+    <div class="nav-links">
+      <a href="#beneficios">Beneficios</a>
+      <a href="#propuesta">¿Por qué nosotros?</a>
+      <a href="#testimonios">Testimonios</a>
+      <a href="#planes">Planes</a>
+      <a href="#contacto" class="nav-cta">Solicitar demo</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="hero">
+  <div class="hero-inner">
+    <div>
+      <div class="hero-badge">✅ Compatible con Decreto 768 de 2025</div>
+      <h1>La plataforma inteligente para tu <span>conjunto residencial</span></h1>
+      <p>Gestiona votaciones, asambleas, PQRS y reportes auditables desde cualquier dispositivo. Simple para el administrador, transparente para todos.</p>
+      <div class="hero-btns">
+        <a href="#contacto" class="btn-primary">🚀 Solicitar demostración gratuita</a>
+        <a href="#beneficios" class="btn-outline">Ver beneficios →</a>
+      </div>
+    </div>
+    <!-- MINI DASHBOARD MOCKUP -->
+    <div class="hero-visual">
+      <div class="dash-header">
+        <div class="dash-dot" style="background:#ff5f56"></div>
+        <div class="dash-dot" style="background:#ffbd2e;margin-left:6px"></div>
+        <div class="dash-dot" style="background:#27c93f;margin-left:6px"></div>
+        <div class="dash-title">AdminFácil – Panel de Control</div>
+      </div>
+      <div class="dash-body">
+        <div class="mini-card"><div class="num">24</div><div class="lbl">Unidades al día</div></div>
+        <div class="mini-card"><div class="num">3</div><div class="lbl">PQRS activas</div></div>
+        <div class="mini-card"><div class="num">87%</div><div class="lbl">Participación asamb.</div></div>
+        <div class="mini-card" style="background:rgba(201,168,52,.15)"><div class="num" style="color:#C9A834">1</div><div class="lbl">Votación activa</div></div>
+      </div>
+      <div class="dash-list">
+        <div class="dash-row">
+          <span>Votación: Presupuesto 2026</span>
+          <span class="mini-badge" style="background:rgba(201,168,52,.2);color:#C9A834">🗳 Activa</span>
+        </div>
+        <div class="dash-row">
+          <span>TK-003 – Falla ascensor</span>
+          <span class="mini-badge" style="background:rgba(46,117,182,.25);color:#7EC8E3">⏳ En trámite</span>
+        </div>
+        <div class="dash-row">
+          <span>Reporte mayo generado</span>
+          <span class="mini-badge" style="background:rgba(33,115,70,.3);color:#90EE90">✓ PDF listo</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TRUST BAR -->
+<div class="trust-bar">
+  <div class="trust-inner">
+    <div class="trust-item"><span class="trust-icon">🏙️</span><div><strong>+200</strong> conjuntos en Colombia</div></div>
+    <div class="trust-item"><span class="trust-icon">⚖️</span><div>Cumple <strong>Decreto 768/2025</strong></div></div>
+    <div class="trust-item"><span class="trust-icon">📱</span><div>Disponible en <strong>móvil y web</strong></div></div>
+    <div class="trust-item"><span class="trust-icon">🔒</span><div>Datos <strong>100% seguros</strong></div></div>
+    <div class="trust-item"><span class="trust-icon">🎓</span><div><strong>Soporte</strong> desde el primer día</div></div>
+  </div>
+</div>
+
+<!-- BENEFICIOS -->
+<section id="beneficios">
+  <div class="section-inner">
+    <div class="text-center">
+      <div class="section-tag">Beneficios</div>
+      <h2 class="section-title">Todo lo que tu conjunto necesita en un solo lugar</h2>
+      <p class="section-sub">Diseñado para que cualquier administrador lo use desde el primer día, sin capacitaciones complejas.</p>
+    </div>
+    <div class="features-grid">
+      <div class="feature-card feature-highlight">
+        <div class="feature-icon">🗳️</div>
+        <h3>Votaciones y Asambleas Digitales</h3>
+        <p>Crea votaciones en minutos, define quórum, tipos de mayoría y fecha límite. Resultados en tiempo real con registro auditable para cada copropietario.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">📋</div>
+        <h3>Gestión de PQRS y Trámites</h3>
+        <p>Los residentes radican peticiones, quejas y reclamos desde el portal. El administrador gestiona, responde y cierra desde un tablero centralizado.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">💰</div>
+        <h3>Cuotas y Paz y Salvo</h3>
+        <p>Visualiza el estado de pago de cada unidad, genera paz y salvos digitales firmados y exporta reportes financieros en PDF o Excel.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">📊</div>
+        <h3>Reportes Auditables</h3>
+        <p>Genera reportes de asambleas, votaciones y estados financieros con firma digital del administrador. Listo para auditorías y supervisión normativa.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🔔</div>
+        <h3>Notificaciones Automáticas</h3>
+        <p>WhatsApp, correo y notificaciones en app para recordar fechas de pago, votaciones activas, respuestas a PQRS y actas de asamblea.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🎧</div>
+        <h3>Soporte y Acompañamiento</h3>
+        <p>Capacitación inicial para el administrador, soporte técnico en línea y base de conocimiento. Nunca estarás solo en el proceso de adopción.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CÓMO FUNCIONA -->
+<section id="como">
+  <div class="section-inner">
+    <div class="text-center">
+      <div class="section-tag">¿Cómo funciona?</div>
+      <h2 class="section-title">En 3 pasos, tu conjunto digitalizado</h2>
+    </div>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <h3>Registro del conjunto</h3>
+        <p>Registra tu conjunto, carga el listado de unidades y copropietarios, y configura los módulos que necesitas. Proceso guiado de 20 minutos.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <h3>Invita a tus residentes</h3>
+        <p>Los copropietarios reciben un correo de bienvenida y acceden al portal de residentes desde su celular o computador. Sin descargas obligatorias.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <h3>Gestiona desde cualquier lugar</h3>
+        <p>Coordina votaciones, responde PQRS, genera reportes y mantén la transparencia de tu comunidad desde cualquier dispositivo, en cualquier momento.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROPUESTA DE VALOR / DECRETO 768 -->
+<section id="propuesta">
+  <div class="section-inner">
+    <div class="pv-grid">
+      <div>
+        <div class="section-tag" style="background:rgba(201,168,52,.2);color:var(--gold)">¿Por qué AdminFácil?</div>
+        <h2 class="section-title">Diferenciado del mercado en lo que más importa</h2>
+        <div class="pv-list" style="margin-top:32px">
+          <div class="pv-item">
+            <div class="pv-icon-box">🖥️</div>
+            <div><h4>Plataforma intuitiva desde el primer uso</h4><p>A diferencia de soluciones complejas como NUWWE o Nuby, AdminFácil reduce la curva de aprendizaje a cero. Sin manuales extensos ni formaciones obligatorias.</p></div>
+          </div>
+          <div class="pv-item">
+            <div class="pv-icon-box">📄</div>
+            <div><h4>Digitalización real de procesos</h4><p>No solo almacenamiento en la nube. AdminFácil digitaliza el flujo completo: desde la convocatoria hasta el acta firmada, eliminando el papel del proceso.</p></div>
+          </div>
+          <div class="pv-item">
+            <div class="pv-icon-box">🤝</div>
+            <div><h4>Soporte continuo garantizado</h4><p>Acompañamiento técnico, capacitación inicial y soporte en línea incluidos en todos los planes. No te dejamos solo después de la instalación.</p></div>
+          </div>
+          <div class="pv-item">
+            <div class="pv-icon-box">💸</div>
+            <div><h4>Precio integrable en el canon de administración</h4><p>Sin gastos extraordinarios para los residentes. AdminFácil se diseñó para que su costo sea absorbido por la cuota de administración existente.</p></div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="decree-box">
+          <h3>⚖️ Cumple el Decreto 768 de 2025</h3>
+          <p>La normativa de propiedad horizontal exige trazabilidad, transparencia y registros auditables en la gestión de asambleas y decisiones comunitarias. AdminFácil fue diseñado para cumplirlo:</p>
+          <div class="decree-check">✅ Registro auditable de todas las votaciones</div>
+          <div class="decree-check">✅ Actas con firma digital del administrador</div>
+          <div class="decree-check">✅ Trazabilidad completa de PQRS y decisiones</div>
+          <div class="decree-check">✅ Reportes para supervisión de autoridades locales</div>
+          <div class="decree-check">✅ Historial inmodificable de asambleas</div>
+          <div class="decree-check">✅ Notificaciones documentadas a todos los copropietarios</div>
+          <div style="margin-top:16px;padding:12px;background:rgba(201,168,52,.15);border-radius:8px;font-size:13px;color:#C9A834;font-weight:600">
+            🛡️ AdminFácil es la única plataforma del mercado diseñada específicamente para los requerimientos del Decreto 768 de 2025.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIOS -->
+<section id="testimonios">
+  <div class="section-inner">
+    <div class="text-center">
+      <div class="section-tag">Testimonios</div>
+      <h2 class="section-title">Lo que dicen nuestros administradores</h2>
+      <p class="section-sub">Experiencias reales de conjuntos que ya usan AdminFácil en su gestión diaria.</p>
+    </div>
+    <div class="testi-grid">
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-text">"Antes las asambleas eran un caos: conteo manual de votos, actas que se perdían, residentes que cuestionaban los resultados. Con AdminFácil todo queda registrado automáticamente y no hay disputas."</p>
+        <div class="testi-author">
+          <div class="testi-avatar">MR</div>
+          <div><div class="testi-name">Martha Romero</div><div class="testi-role">Administradora · Conjunto La Alborada, Cali</div></div>
+        </div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-text">"Lo mejor es que los residentes pueden ver el estado de sus PQRS en tiempo real. Ya no llaman a preguntar qué pasó con su solicitud. La transparencia mejoró mucho la convivencia."</p>
+        <div class="testi-author">
+          <div class="testi-avatar">JC</div>
+          <div><div class="testi-name">Juan Carlos Peña</div><div class="testi-role">Consejo de Administración · Res. Parques del Norte, Bogotá</div></div>
+        </div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-stars">★★★★☆</div>
+        <p class="testi-text">"Venía de usar Excel y Google Forms. El cambio fue enorme. El reporte de cuotas que antes me tomaba medio día ahora lo genero en 3 minutos. Le recomendaría AdminFácil a cualquier administrador."</p>
+        <div class="testi-author">
+          <div class="testi-avatar">LP</div>
+          <div><div class="testi-name">Lorena Pacheco</div><div class="testi-role">Administradora · Torres del Poblado, Medellín</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PLANES -->
+<section id="planes" style="background:#fff">
+  <div class="section-inner">
+    <div class="text-center">
+      <div class="section-tag">Planes y Precios</div>
+      <h2 class="section-title">Sin costos ocultos. Sin sorpresas.</h2>
+      <p class="section-sub">Elige el plan que se adapta al tamaño de tu conjunto residencial. Todos incluyen soporte y actualizaciones.</p>
+    </div>
+    <div class="planes-grid">
+      <div class="plan-card">
+        <div class="plan-name">Básico</div>
+        <div class="plan-price"><sup>$</sup>89.000</div>
+        <div class="plan-sub">COP / mes por conjunto</div>
+        <ul class="plan-features">
+          <li>Hasta 40 unidades residenciales</li>
+          <li>Módulo de votaciones y asambleas</li>
+          <li>Gestión de PQRS (hasta 20/mes)</li>
+          <li>Reportes PDF básicos</li>
+          <li>Soporte por correo electrónico</li>
+          <li>Capacitación inicial (1 sesión)</li>
+        </ul>
+        <button class="btn-plan btn-plan-outline" onclick="document.getElementById('contacto').scrollIntoView()">Comenzar gratis</button>
+      </div>
+      <div class="plan-card featured">
+        <div class="plan-badge">⭐ Más popular</div>
+        <div class="plan-name">Profesional</div>
+        <div class="plan-price"><sup>$</sup>149.000</div>
+        <div class="plan-sub">COP / mes por conjunto</div>
+        <ul class="plan-features">
+          <li>Hasta 120 unidades residenciales</li>
+          <li>Todos los módulos incluidos</li>
+          <li>PQRS ilimitadas</li>
+          <li>Reportes auditables + firma digital</li>
+          <li>Gestión de cuotas y paz y salvo</li>
+          <li>Notificaciones WhatsApp y correo</li>
+          <li>Soporte prioritario (L–S 8am–6pm)</li>
+          <li>Cumplimiento Decreto 768/2025</li>
+        </ul>
+        <button class="btn-plan btn-plan-fill" onclick="document.getElementById('contacto').scrollIntoView()">Solicitar demo gratuita</button>
+      </div>
+      <div class="plan-card">
+        <div class="plan-name">Empresarial</div>
+        <div class="plan-price">A<span style="font-size:18px">medida</span></div>
+        <div class="plan-sub">Para grandes conjuntos o unidades residenciales</div>
+        <ul class="plan-features">
+          <li>Unidades ilimitadas</li>
+          <li>Multi-conjunto en un solo panel</li>
+          <li>Integración con sistemas contables</li>
+          <li>API para desarrolladores</li>
+          <li>Soporte 24/7 dedicado</li>
+          <li>Gerente de cuenta asignado</li>
+          <li>Capacitación presencial</li>
+        </ul>
+        <button class="btn-plan btn-plan-outline" onclick="document.getElementById('contacto').scrollIntoView()">Contactar ventas</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FORMULARIO DE CONTACTO -->
+<section id="contacto">
+  <div class="section-inner">
+    <div class="form-box">
+      <h2>Solicita tu demostración gratuita</h2>
+      <p>Sin compromiso. En menos de 24 horas un asesor se pondrá en contacto contigo para agendar tu demo personalizada.</p>
+      <div class="form-grid">
+        <div class="form-group">
+          <label>Nombre completo *</label>
+          <input type="text" id="fname" placeholder="Ej. María González">
+        </div>
+        <div class="form-group">
+          <label>Correo electrónico *</label>
+          <input type="email" id="femail" placeholder="correo@ejemplo.com">
+        </div>
+        <div class="form-group">
+          <label>Nombre del conjunto *</label>
+          <input type="text" id="fconjunto" placeholder="Ej. Torres del Parque">
+        </div>
+        <div class="form-group">
+          <label>Número de unidades *</label>
+          <select id="funidades">
+            <option value="">Selecciona...</option>
+            <option>Menos de 20</option>
+            <option>20 – 50</option>
+            <option>51 – 120</option>
+            <option>Más de 120</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Teléfono de contacto *</label>
+          <input type="tel" id="ftel" placeholder="+57 300 000 0000">
+        </div>
+        <div class="form-group">
+          <label>Ciudad</label>
+          <input type="text" id="fciudad" placeholder="Ej. Cali, Bogotá, Medellín">
+        </div>
+        <div class="form-group full">
+          <label>¿Cuál es tu principal reto de gestión hoy?</label>
+          <textarea id="freto" placeholder="Cuéntanos brevemente qué dificultades tienes actualmente con la administración de tu conjunto..."></textarea>
+        </div>
+      </div>
+      <button class="form-submit" onclick="submitForm()">🚀 Solicitar demostración gratuita →</button>
+      <div class="form-privacy">🔒 Tus datos están protegidos según la Ley 1581 de 2012 (habeas data). No compartimos tu información con terceros.</div>
+      <div class="success-msg" id="successMsg">
+        ✅ ¡Gracias! Hemos recibido tu solicitud. Un asesor de AdminFácil se comunicará contigo en las próximas 24 horas para agendar tu demostración gratuita.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <a class="logo">Admin<span style="color:var(--gold)">Fácil</span></a>
+        <p>La plataforma digital líder para la administración de conjuntos residenciales en Colombia. Transparente, eficiente y normativa.</p>
+        <div style="margin-top:12px;display:flex;gap:12px;font-size:18px">
+          <a href="#" style="text-decoration:none">📱</a>
+          <a href="#" style="text-decoration:none">📧</a>
+          <a href="#" style="text-decoration:none">💼</a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Producto</h4>
+        <a href="#">Módulos</a>
+        <a href="#">Precios</a>
+        <a href="#">Demo</a>
+        <a href="#">Actualizaciones</a>
+      </div>
+      <div class="footer-col">
+        <h4>Soporte</h4>
+        <a href="#">Centro de ayuda</a>
+        <a href="#">Capacitaciones</a>
+        <a href="#">Contacto</a>
+        <a href="#">Estado del sistema</a>
+      </div>
+      <div class="footer-col">
+        <h4>Legal</h4>
+        <a href="#">Política de privacidad</a>
+        <a href="#">Términos de servicio</a>
+        <a href="#">Tratamiento de datos</a>
+        <a href="#">Decreto 768/2025</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 AdminFácil – Todos los derechos reservados. NIT: [En registro]</p>
+      <p>Colombia 🇨🇴 | soporte@adminfacil.co | +57 300 000 0000</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+function submitForm(){
+  const f=document.getElementById('fname').value;
+  const e=document.getElementById('femail').value;
+  const c=document.getElementById('fconjunto').value;
+  const u=document.getElementById('funidades').value;
+  const t=document.getElementById('ftel').value;
+  if(!f||!e||!c||!u||!t){
+    alert('Por favor completa todos los campos obligatorios (*).');
+    return;
+  }
+  const msg=document.getElementById('successMsg');
+  msg.style.display='block';
+  document.querySelector('.form-submit').disabled=true;
+  document.querySelector('.form-submit').textContent='✓ Solicitud enviada';
+  msg.scrollIntoView({behavior:'smooth',block:'nearest'});
+}
+// Smooth active nav
+const sections=document.querySelectorAll('section[id]');
+window.addEventListener('scroll',()=>{
+  let cur='';
+  sections.forEach(s=>{if(window.scrollY>=s.offsetTop-80)cur=s.id});
+  document.querySelectorAll('.nav-links a').forEach(a=>{
+    a.style.color=a.getAttribute('href')==='#'+cur?'#fff':'';
+  });
+});
+</script>
+</body>
+</html>
